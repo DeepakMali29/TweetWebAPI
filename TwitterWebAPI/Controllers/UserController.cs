@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TwitterWebAPI.Models;
 using TwitterWebAPI.Service;
 
 namespace TwitterWebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/tweets/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -15,10 +18,16 @@ namespace TwitterWebAPI.Controllers
             _userService = userService;
         }
 
-        //[HttpGet("GetAllUsers")]
-        //public async Task<IActionResult> Get()
-        //{
-        //    return Ok(await _userService.GetAllUsers());
-        //}
+        [HttpGet("all")]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(await _userService.GetAllUsersAsync());
+        }
+
+        [HttpGet("username")]
+        public async Task<IActionResult> Search(string username)
+        {
+            return Ok(await _userService.SearchUsersByNameAsync(username));
+        }
     }
 }

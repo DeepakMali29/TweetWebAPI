@@ -6,11 +6,12 @@ namespace TwitterWebAPI.Models
     public class Tweet
     {
         public int Id { get; set; }
-        [ForeignKey("User")]
+        [Required]
         public int UserId { get; set; }
         [Required]
-        public string Message { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public string TweetMessage { get; set; }
+        public DateTime TweetCreatedDate { get; set; }
+        public DateTime TweetModifiedDate { get; set; }
+        public virtual User User { get; set; }
     }
 }
